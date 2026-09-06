@@ -1,0 +1,16 @@
+# Python virtual environments
+.venv/
+venv/
+ml_model/.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Generated files
+ml_model/data/processed/
+ml_model/outputs/
+
+# Trained model files
+*.pth
+*.pt
