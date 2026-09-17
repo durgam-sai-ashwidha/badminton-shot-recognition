@@ -1,141 +1,681 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
     <title>Badminton AI</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
+
+<!-- ==========================================
+     HEADER
+=========================================== -->
+
 <header>
+
     <div class="logo">
         🏸 <span>Badminton AI</span>
     </div>
 
+
     <nav>
-        <a class="active" href="#">Home</a>
-        <a href="#analyze">Analyze</a>
-        <a href="#about">About</a>
+
+        <a
+            class="active"
+            href="#"
+        >
+            Home
+        </a>
+
+        <a href="#analyze">
+            Analyze
+        </a>
+
+        <a href="#analytics">
+            Analytics
+        </a>
+
+        <a href="#about">
+            About
+        </a>
+
     </nav>
+
 </header>
 
 
+
+<!-- ==========================================
+     MAIN
+=========================================== -->
+
 <main>
 
+
+    <!-- ======================================
+         HERO
+    ======================================= -->
+
     <section class="hero">
-        <h1>Badminton <span>Shot Recognition</span></h1>
-        <p>Upload a badminton video and identify the shot.</p>
+
+        <h1>
+            Badminton
+            <span>Shot Recognition</span>
+        </h1>
+
+        <p>
+            Upload a badminton video and let
+            Model 2 analyze your shots.
+        </p>
+
     </section>
 
 
-    <!-- Upload -->
+
+    <!-- ======================================
+         UPLOAD
+    ======================================= -->
+
     <section class="upload-box">
 
-        <div class="upload-icon">☁</div>
+        <div class="upload-icon">
+            ☁
+        </div>
 
-        <h3>Drag & drop your video here</h3>
-        <p>or</p>
 
-        <label for="videoInput" class="choose-btn">
+        <h3>
+            Drag & drop your video here
+        </h3>
+
+
+        <p>
+            or
+        </p>
+
+
+        <label
+            for="videoInput"
+            class="choose-btn"
+        >
             📁 Choose Video
         </label>
+
 
         <input
             type="file"
             id="videoInput"
-            accept="video/mp4,video/avi,video/mov"
+            accept="video/mp4,video/avi,video/mov,video/mkv"
             hidden
         >
 
+
         <small>
-            Supported formats: MP4, AVI, MOV &nbsp; (Max size: 500MB)
+            Supported formats:
+            MP4, AVI, MOV, MKV
+            &nbsp;
+            (Max size: 500MB)
         </small>
 
     </section>
 
 
-    <!-- Analysis -->
-    <section class="analysis-card">
+
+    <!-- ======================================
+         ANALYSIS CARD
+    ======================================= -->
+
+    <section
+        class="analysis-card"
+        id="analyze"
+    >
+
+
+        <!-- ==================================
+             VIDEO
+        =================================== -->
 
         <div class="video-section">
 
-            <video id="videoPreview" controls></video>
+            <video
+                id="videoPreview"
+                controls
+            ></video>
+
 
             <div id="noVideo">
-                Upload a video to preview it
+
+                Upload a video
+                to preview it
+
             </div>
 
         </div>
 
 
+
+        <!-- ==================================
+             MAIN RESULT
+        =================================== -->
+
         <div class="result-section">
 
-            <p class="result-title">Predicted Shot</p>
+
+            <p class="result-title">
+                Model 2 Prediction
+            </p>
+
 
             <div class="prediction">
-                <div class="shot-icon">🏸</div>
+
+
+                <div class="shot-icon">
+                    🏸
+                </div>
+
 
                 <div>
-                    <h2 id="prediction">---</h2>
+
+                    <h2 id="prediction">
+                        ---
+                    </h2>
+
+
                     <p>
+
                         Confidence:
-                        <strong id="confidence">--</strong>
+
+                        <strong id="confidence">
+                            --
+                        </strong>
+
                     </p>
+
                 </div>
+
             </div>
 
 
-            <h3>Shot Classes</h3>
+
+            <!-- ==================================
+                 SHOT CLASSES
+            =================================== -->
+
+            <h3>
+                Shot Classes
+            </h3>
+
 
             <div class="shot-row">
+
                 <span class="dot smash"></span>
-                <span>Smash</span>
-                <strong id="smash">--</strong>
+
+                <span>
+                    Smash
+                </span>
+
+                <strong id="smash">
+                    --
+                </strong>
+
             </div>
 
+
             <div class="shot-row">
+
                 <span class="dot clear"></span>
-                <span>Clear</span>
-                <strong id="clear">--</strong>
+
+                <span>
+                    Clear
+                </span>
+
+                <strong id="clear">
+                    --
+                </strong>
+
             </div>
 
+
             <div class="shot-row">
+
                 <span class="dot drop"></span>
-                <span>Drop</span>
-                <strong id="drop">--</strong>
+
+                <span>
+                    Drop
+                </span>
+
+                <strong id="drop">
+                    --
+                </strong>
+
             </div>
 
+
             <div class="shot-row">
+
                 <span class="dot drive"></span>
-                <span>Drive</span>
-                <strong id="drive">--</strong>
+
+                <span>
+                    Drive
+                </span>
+
+                <strong id="drive">
+                    --
+                </strong>
+
             </div>
+
 
             <div class="shot-row">
+
                 <span class="dot net"></span>
-                <span>Net Shot</span>
-                <strong id="net">--</strong>
+
+                <span>
+                    Net Shot
+                </span>
+
+                <strong id="net">
+                    --
+                </strong>
+
             </div>
 
+
+
+            <!-- ==================================
+                 ANALYZE BUTTON
+            =================================== -->
 
             <button id="analyzeBtn">
+
                 ▶ Analyze Video
+
             </button>
+
 
         </div>
 
     </section>
 
+
+
+    <!-- ======================================
+         MODEL 2 ANALYTICS
+    ======================================= -->
+
+    <section
+        class="analytics-section"
+        id="analytics"
+    >
+
+
+        <div class="analytics-heading">
+
+            <h2>
+                Match Analytics
+            </h2>
+
+            <p>
+                Detailed shot analysis generated
+                by Model 2.
+            </p>
+
+        </div>
+
+
+
+        <!-- ==================================
+             SHOT FREQUENCY
+        =================================== -->
+
+        <div class="analytics-card">
+
+            <h3>
+                🏸 Shot Frequency
+            </h3>
+
+            <p class="analytics-description">
+                Number of times each shot was detected.
+            </p>
+
+
+            <div class="analytics-grid">
+
+
+                <div class="analytics-item">
+
+                    <span class="dot smash"></span>
+
+                    <span>
+                        Smash
+                    </span>
+
+                    <strong id="frequency-smash">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="analytics-item">
+
+                    <span class="dot clear"></span>
+
+                    <span>
+                        Clear
+                    </span>
+
+                    <strong id="frequency-clear">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="analytics-item">
+
+                    <span class="dot drop"></span>
+
+                    <span>
+                        Drop
+                    </span>
+
+                    <strong id="frequency-drop">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="analytics-item">
+
+                    <span class="dot drive"></span>
+
+                    <span>
+                        Drive
+                    </span>
+
+                    <strong id="frequency-drive">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="analytics-item">
+
+                    <span class="dot net"></span>
+
+                    <span>
+                        Net Shot
+                    </span>
+
+                    <strong id="frequency-net">
+                        --
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================
+             SHOT DISTRIBUTION
+        =================================== -->
+
+        <div class="analytics-card">
+
+            <h3>
+                📊 Shot Distribution
+            </h3>
+
+            <p class="analytics-description">
+                Percentage of each shot detected
+                across the video.
+            </p>
+
+
+            <div class="distribution-list">
+
+
+                <div class="distribution-row">
+
+                    <span>
+                        Smash
+                    </span>
+
+                    <div class="distribution-bar">
+
+                        <div
+                            class="distribution-fill smash-fill"
+                            id="bar-smash"
+                        ></div>
+
+                    </div>
+
+                    <strong id="distribution-smash">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="distribution-row">
+
+                    <span>
+                        Clear
+                    </span>
+
+                    <div class="distribution-bar">
+
+                        <div
+                            class="distribution-fill clear-fill"
+                            id="bar-clear"
+                        ></div>
+
+                    </div>
+
+                    <strong id="distribution-clear">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="distribution-row">
+
+                    <span>
+                        Drop
+                    </span>
+
+                    <div class="distribution-bar">
+
+                        <div
+                            class="distribution-fill drop-fill"
+                            id="bar-drop"
+                        ></div>
+
+                    </div>
+
+                    <strong id="distribution-drop">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="distribution-row">
+
+                    <span>
+                        Drive
+                    </span>
+
+                    <div class="distribution-bar">
+
+                        <div
+                            class="distribution-fill drive-fill"
+                            id="bar-drive"
+                        ></div>
+
+                    </div>
+
+                    <strong id="distribution-drive">
+                        --
+                    </strong>
+
+                </div>
+
+
+                <div class="distribution-row">
+
+                    <span>
+                        Net Shot
+                    </span>
+
+                    <div class="distribution-bar">
+
+                        <div
+                            class="distribution-fill net-fill"
+                            id="bar-net"
+                        ></div>
+
+                    </div>
+
+                    <strong id="distribution-net">
+                        --
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================
+             SHOT SEQUENCE
+        =================================== -->
+
+        <div class="analytics-card">
+
+            <h3>
+                🔗 Shot Sequence
+            </h3>
+
+            <p class="analytics-description">
+                The order in which shots were detected.
+            </p>
+
+
+            <div
+                class="sequence-box"
+                id="shotSequence"
+            >
+                No analysis yet.
+            </div>
+
+        </div>
+
+
+
+        <!-- ==================================
+             SHOT COMBINATIONS
+        =================================== -->
+
+        <div class="analytics-card">
+
+            <h3>
+                🎯 Shot Combinations
+            </h3>
+
+            <p class="analytics-description">
+                Most common two- and three-shot patterns.
+            </p>
+
+
+            <div
+                class="combinations-box"
+                id="shotCombinations"
+            >
+                No analysis yet.
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+
+    <!-- ======================================
+         ABOUT
+    ======================================= -->
+
+    <section
+        class="about-section"
+        id="about"
+    >
+
+        <h2>
+            About Badminton AI
+        </h2>
+
+        <p>
+            Badminton AI uses a trained CNN + LSTM
+            deep learning model to recognize
+            badminton shots from video.
+        </p>
+
+        <p>
+            Model 2 also provides shot frequency,
+            distribution, sequences and common
+            shot combinations.
+        </p>
+
+    </section>
+
+
 </main>
 
 
+
+<!-- ==========================================
+     FOOTER
+=========================================== -->
+
 <footer>
-    <p>© 2026 Badminton AI</p>
+
+    <p>
+        © 2026 Badminton AI
+    </p>
+
 </footer>
+
+
 
 <script src="script.js"></script>
 
 </body>
+
 </html>

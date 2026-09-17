@@ -7,7 +7,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     color: #18324a;
-
     background-color: #f7fbfa;
     background-image: url("assets/badminton-bg.png");
     background-repeat: no-repeat;
@@ -15,7 +14,11 @@ body {
     background-size: 100% auto;
     background-attachment: fixed;
 }
-/* Header */
+
+
+/* ==========================================
+   HEADER
+========================================== */
 
 header {
     height: 64px;
@@ -39,7 +42,7 @@ header {
 
 nav {
     display: flex;
-    gap: 35px;
+    gap: 28px;
 }
 
 nav a {
@@ -55,16 +58,20 @@ nav a.active {
 }
 
 
-/* Main */
+/* ==========================================
+   MAIN
+========================================== */
 
 main {
-    max-width: 950px;
+    max-width: 1000px;
     margin: auto;
     padding: 55px 25px;
 }
 
 
-/* Hero */
+/* ==========================================
+   HERO
+========================================== */
 
 .hero {
     text-align: center;
@@ -86,7 +93,9 @@ main {
 }
 
 
-/* Upload */
+/* ==========================================
+   UPLOAD
+========================================== */
 
 .upload-box {
     background: white;
@@ -132,7 +141,9 @@ main {
 }
 
 
-/* Analysis Card */
+/* ==========================================
+   ANALYSIS CARD
+========================================== */
 
 .analysis-card {
     background: white;
@@ -145,7 +156,9 @@ main {
 }
 
 
-/* Video */
+/* ==========================================
+   VIDEO
+========================================== */
 
 .video-section {
     position: relative;
@@ -170,7 +183,9 @@ main {
 }
 
 
-/* Results */
+/* ==========================================
+   RESULTS
+========================================== */
 
 .result-section {
     padding: 5px;
@@ -218,7 +233,9 @@ main {
 }
 
 
-/* Shot rows */
+/* ==========================================
+   SHOT ROWS
+========================================== */
 
 .shot-row {
     display: flex;
@@ -238,6 +255,7 @@ main {
     height: 9px;
     border-radius: 50%;
     margin-right: 10px;
+    display: inline-block;
 }
 
 .smash {
@@ -261,7 +279,9 @@ main {
 }
 
 
-/* Button */
+/* ==========================================
+   ANALYZE BUTTON
+========================================== */
 
 #analyzeBtn {
     width: 100%;
@@ -280,17 +300,216 @@ main {
     background: #078f68;
 }
 
+#analyzeBtn:disabled {
+    background: #8fcfc0;
+    cursor: not-allowed;
+}
 
-/* Footer */
+
+/* ==========================================
+   ANALYTICS SECTION
+========================================== */
+
+.analytics-section {
+    margin-top: 45px;
+}
+
+.analytics-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.analytics-heading h2 {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.analytics-heading p {
+    color: #718096;
+}
+
+
+/* ==========================================
+   ANALYTICS CARDS
+========================================== */
+
+.analytics-card {
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 30px rgba(20, 60, 70, 0.07);
+}
+
+.analytics-card h3 {
+    font-size: 19px;
+    margin-bottom: 6px;
+}
+
+.analytics-description {
+    color: #718096;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+
+/* ==========================================
+   FREQUENCY
+========================================== */
+
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+}
+
+.analytics-item {
+    background: #f7fbfa;
+    border-radius: 9px;
+    padding: 15px;
+    text-align: center;
+}
+
+.analytics-item .dot {
+    margin-right: 5px;
+}
+
+.analytics-item strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 22px;
+    color: #18324a;
+}
+
+
+/* ==========================================
+   DISTRIBUTION
+========================================== */
+
+.distribution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.distribution-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 65px;
+    align-items: center;
+    gap: 12px;
+}
+
+.distribution-row span {
+    font-size: 14px;
+}
+
+.distribution-row strong {
+    text-align: right;
+}
+
+.distribution-bar {
+    height: 10px;
+    background: #edf2f2;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.distribution-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.smash-fill {
+    background: #ef476f;
+}
+
+.clear-fill {
+    background: #3182ce;
+}
+
+.drop-fill {
+    background: #f6bd3b;
+}
+
+.drive-fill {
+    background: #8b4de8;
+}
+
+.net-fill {
+    background: #22b8b8;
+}
+
+
+/* ==========================================
+   SEQUENCE
+========================================== */
+
+.sequence-box {
+    min-height: 70px;
+    background: #f0faf7;
+    border-radius: 9px;
+    padding: 20px;
+    color: #08a678;
+    font-weight: 600;
+    line-height: 1.8;
+    word-break: break-word;
+}
+
+
+/* ==========================================
+   COMBINATIONS
+========================================== */
+
+.combinations-box {
+    min-height: 100px;
+    background: #f7fbfa;
+    border-radius: 9px;
+    padding: 20px;
+    white-space: pre-line;
+    line-height: 1.8;
+    color: #18324a;
+}
+
+
+/* ==========================================
+   ABOUT
+========================================== */
+
+.about-section {
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 8px 30px rgba(20, 60, 70, 0.06);
+}
+
+.about-section h2 {
+    margin-bottom: 12px;
+}
+
+.about-section p {
+    color: #718096;
+    line-height: 1.7;
+    margin-bottom: 8px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
 
 footer {
     text-align: center;
-    padding: 25px;
+    padding: 30px;
     color: #8a98a5;
 }
 
 
-/* Mobile */
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media (max-width: 750px) {
 
@@ -299,7 +518,11 @@ footer {
     }
 
     nav {
-        gap: 15px;
+        gap: 12px;
+    }
+
+    nav a {
+        font-size: 13px;
     }
 
     .hero h1 {
@@ -310,4 +533,44 @@ footer {
         grid-template-columns: 1fr;
     }
 
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .distribution-row {
+        grid-template-columns: 75px 1fr 55px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .logo {
+        font-size: 17px;
+    }
+
+    nav {
+        gap: 7px;
+    }
+
+    nav a {
+        font-size: 11px;
+    }
+
+    main {
+        padding: 35px 15px;
+    }
+
+    .upload-box {
+        padding: 28px 15px;
+    }
+
+    .analytics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .distribution-row {
+        grid-template-columns: 65px 1fr 50px;
+        gap: 7px;
+    }
 }
