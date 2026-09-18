@@ -19,13 +19,7 @@
 
 </head>
 
-
 <body>
-
-
-<!-- ==========================================
-     HEADER
-=========================================== -->
 
 <header>
 
@@ -33,13 +27,9 @@
         🏸 <span>Badminton AI</span>
     </div>
 
-
     <nav>
 
-        <a
-            class="active"
-            href="#"
-        >
+        <a class="active" href="#">
             Home
         </a>
 
@@ -60,17 +50,9 @@
 </header>
 
 
-
-<!-- ==========================================
-     MAIN
-=========================================== -->
-
 <main>
 
-
-    <!-- ======================================
-         HERO
-    ======================================= -->
+    <!-- HERO -->
 
     <section class="hero">
 
@@ -87,10 +69,7 @@
     </section>
 
 
-
-    <!-- ======================================
-         UPLOAD
-    ======================================= -->
+    <!-- UPLOAD -->
 
     <section class="upload-box">
 
@@ -98,16 +77,13 @@
             ☁
         </div>
 
-
         <h3>
             Drag & drop your video here
         </h3>
 
-
         <p>
             or
         </p>
-
 
         <label
             for="videoInput"
@@ -116,47 +92,40 @@
             📁 Choose Video
         </label>
 
-
         <input
             type="file"
             id="videoInput"
-            accept="video/mp4,video/avi,video/mov,video/mkv"
-            hidden
+            accept=".mp4,.avi,.mov,.mkv,video/mp4,video/avi,video/quicktime,video/x-matroska"
         >
-
 
         <small>
             Supported formats:
             MP4, AVI, MOV, MKV
-            &nbsp;
-            (Max size: 500MB)
         </small>
+
+        <p id="selectedFileName">
+            No video selected
+        </p>
 
     </section>
 
 
-
-    <!-- ======================================
-         ANALYSIS CARD
-    ======================================= -->
+    <!-- ANALYSIS -->
 
     <section
         class="analysis-card"
         id="analyze"
     >
 
-
-        <!-- ==================================
-             VIDEO
-        =================================== -->
+        <!-- VIDEO -->
 
         <div class="video-section">
 
             <video
                 id="videoPreview"
                 controls
+                preload="metadata"
             ></video>
-
 
             <div id="noVideo">
 
@@ -168,13 +137,9 @@
         </div>
 
 
-
-        <!-- ==================================
-             MAIN RESULT
-        =================================== -->
+        <!-- RESULTS -->
 
         <div class="result-section">
-
 
             <p class="result-title">
                 Model 2 Prediction
@@ -183,18 +148,15 @@
 
             <div class="prediction">
 
-
                 <div class="shot-icon">
                     🏸
                 </div>
-
 
                 <div>
 
                     <h2 id="prediction">
                         ---
                     </h2>
-
 
                     <p>
 
@@ -210,11 +172,6 @@
 
             </div>
 
-
-
-            <!-- ==================================
-                 SHOT CLASSES
-            =================================== -->
 
             <h3>
                 Shot Classes
@@ -296,33 +253,31 @@
             </div>
 
 
+            <!-- IMPORTANT: type="button" -->
 
-            <!-- ==================================
-                 ANALYZE BUTTON
-            =================================== -->
-
-            <button id="analyzeBtn">
-
+            <button
+                id="analyzeBtn"
+                type="button"
+            >
                 ▶ Analyze Video
-
             </button>
 
+
+            <p id="statusMessage">
+                Select a video and click Analyze Video.
+            </p>
 
         </div>
 
     </section>
 
 
-
-    <!-- ======================================
-         MODEL 2 ANALYTICS
-    ======================================= -->
+    <!-- ANALYTICS -->
 
     <section
         class="analytics-section"
         id="analytics"
     >
-
 
         <div class="analytics-heading">
 
@@ -338,10 +293,7 @@
         </div>
 
 
-
-        <!-- ==================================
-             SHOT FREQUENCY
-        =================================== -->
+        <!-- FREQUENCY -->
 
         <div class="analytics-card">
 
@@ -355,7 +307,6 @@
 
 
             <div class="analytics-grid">
-
 
                 <div class="analytics-item">
 
@@ -431,16 +382,12 @@
 
                 </div>
 
-
             </div>
 
         </div>
 
 
-
-        <!-- ==================================
-             SHOT DISTRIBUTION
-        =================================== -->
+        <!-- DISTRIBUTION -->
 
         <div class="analytics-card">
 
@@ -566,16 +513,12 @@
 
                 </div>
 
-
             </div>
 
         </div>
 
 
-
-        <!-- ==================================
-             SHOT SEQUENCE
-        =================================== -->
+        <!-- SEQUENCE -->
 
         <div class="analytics-card">
 
@@ -587,7 +530,6 @@
                 The order in which shots were detected.
             </p>
 
-
             <div
                 class="sequence-box"
                 id="shotSequence"
@@ -598,10 +540,7 @@
         </div>
 
 
-
-        <!-- ==================================
-             SHOT COMBINATIONS
-        =================================== -->
+        <!-- COMBINATIONS -->
 
         <div class="analytics-card">
 
@@ -613,7 +552,6 @@
                 Most common two- and three-shot patterns.
             </p>
 
-
             <div
                 class="combinations-box"
                 id="shotCombinations"
@@ -623,14 +561,10 @@
 
         </div>
 
-
     </section>
 
 
-
-    <!-- ======================================
-         ABOUT
-    ======================================= -->
+    <!-- ABOUT -->
 
     <section
         class="about-section"
@@ -655,14 +589,8 @@
 
     </section>
 
-
 </main>
 
-
-
-<!-- ==========================================
-     FOOTER
-=========================================== -->
 
 <footer>
 
@@ -671,7 +599,6 @@
     </p>
 
 </footer>
-
 
 
 <script src="script.js"></script>

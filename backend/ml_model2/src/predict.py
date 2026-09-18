@@ -5,11 +5,7 @@ from pathlib import Path
 import torch
 
 from ml_model2.src.model import BadmintonCNNLSTM
-
-from ml_model2.src.preprocessing import (
-    extract_video_windows
-)
-
+from ml_model2.src.preprocessing import extract_video_windows
 from ml_model2.src.analytics import analyze_predictions
 
 
@@ -33,7 +29,7 @@ CLASS_NAMES = [
     "Clear",
     "Net Shot",
     "Drop",
-    "Drive"
+    "Drive",
 ]
 
 
@@ -43,44 +39,37 @@ CLASS_NAMES = [
 
 def load_model():
 
-    # Render CPU environment
+    # Render/CPU environment
     device = torch.device("cpu")
 
     model = BadmintonCNNLSTM(
         num_classes=5,
         hidden_size=256,
-        num_layers=2
+        num_layers=2,
     )
 
-    # Load checkpoint directly onto CPU.
-    # mmap=True helps reduce peak memory while
-    # loading supported PyTorch checkpoints.
     checkpoint = torch.load(
         MODEL_PATH,
         map_location=device,
         weights_only=True,
-        mmap=True
+        mmap=True,
     )
 
     model.load_state_dict(
         checkpoint["model_state_dict"]
     )
 
-    # Release checkpoint dictionary after
-    # copying the weights into the model.
+    # Release checkpoint memory
     del checkpoint
 
     model.to(device)
-
-    # Evaluation mode disables training behaviour
-    # such as Dropout and updates to BatchNorm.
     model.eval()
 
     return model, device
 
 
 # ==========================================
-# PREDICT COMPLETE VIDEO
+# PREDICT VIDEO
 # ==========================================
 
 def predict_video(video_path):
@@ -92,38 +81,28 @@ def predict_video(video_path):
 
     try:
 
-        # IMPORTANT:
-        # extract_video_windows now yields ONE
-        # window at a time instead of keeping the
-        # entire video in RAM.
         windows = extract_video_windows(
             video_path,
             num_frames=16,
-            stride=8
+            stride=8,
         )
 
         with torch.inference_mode():
 
             for window in windows:
 
-                # Keep only the current window in memory.
-                window = window.to(
-                    device,
-                    non_blocking=False
-                )
+                window = window.to(device)
 
-                outputs = model(
-                    window
-                )
+                outputs = model(window)
 
                 probabilities = torch.softmax(
                     outputs,
-                    dim=1
+                    dim=1,
                 )
 
                 predicted_class = torch.argmax(
                     probabilities,
-                    dim=1
+                    dim=1,
                 ).item()
 
                 predicted_label = CLASS_NAMES[
@@ -132,7 +111,7 @@ def predict_video(video_path):
 
                 confidence = probabilities[
                     0,
-                    predicted_class
+                    predicted_class,
                 ].item()
 
                 predictions.append(
@@ -143,25 +122,23 @@ def predict_video(video_path):
                     confidence
                 )
 
-                # Explicitly release tensors from
-                # the current iteration.
+                # Release tensors immediately
                 del window
                 del outputs
                 del probabilities
 
+                gc.collect()
+
     finally:
 
-        # Release model and Python references.
         del model
-
-        # Ask Python to release unused objects.
         gc.collect()
 
     return predictions, confidences
 
 
 # ==========================================
-# ANALYZE COMPLETE VIDEO
+# ANALYZE VIDEO
 # ==========================================
 
 def analyze_video(video_path):
@@ -176,10 +153,8 @@ def analyze_video(video_path):
 
     return {
         "predictions": predictions,
-
         "confidences": confidences,
-
-        "analytics": analytics
+        "analytics": analytics,
     }
 
 
@@ -266,4 +241,3 @@ if __name__ == "__main__":
     print(
         "=========================================="
     )
-
