@@ -1,10 +1,12 @@
-import torch
+
+import gc
 from pathlib import Path
+
+import torch
 
 from ml_model2.src.model import BadmintonCNNLSTM
 
 from ml_model2.src.preprocessing import (
-    extract_frames,
     extract_video_windows
 )
 
@@ -41,11 +43,8 @@ CLASS_NAMES = [
 
 def load_model():
 
-    device = torch.device(
-        "cuda"
-        if torch.cuda.is_available()
-        else "cpu"
-    )
+    # Render CPU environment
+    device = torch.device("cpu")
 
     model = BadmintonCNNLSTM(
         num_classes=5,
@@ -53,18 +52,28 @@ def load_model():
         num_layers=2
     )
 
+    # Load checkpoint directly onto CPU.
+    # mmap=True helps reduce peak memory while
+    # loading supported PyTorch checkpoints.
     checkpoint = torch.load(
         MODEL_PATH,
         map_location=device,
-        weights_only=True
+        weights_only=True,
+        mmap=True
     )
 
     model.load_state_dict(
         checkpoint["model_state_dict"]
     )
 
+    # Release checkpoint dictionary after
+    # copying the weights into the model.
+    del checkpoint
+
     model.to(device)
 
+    # Evaluation mode disables training behaviour
+    # such as Dropout and updates to BatchNorm.
     model.eval()
 
     return model, device
@@ -78,49 +87,75 @@ def predict_video(video_path):
 
     model, device = load_model()
 
-    windows = extract_video_windows(
-        video_path,
-        num_frames=16,
-        stride=8
-    )
-
     predictions = []
     confidences = []
 
-    with torch.inference_mode():
+    try:
 
-        for window in windows:
+        # IMPORTANT:
+        # extract_video_windows now yields ONE
+        # window at a time instead of keeping the
+        # entire video in RAM.
+        windows = extract_video_windows(
+            video_path,
+            num_frames=16,
+            stride=8
+        )
 
-            window = window.to(device)
+        with torch.inference_mode():
 
-            outputs = model(window)
+            for window in windows:
 
-            probabilities = torch.softmax(
-                outputs,
-                dim=1
-            )
+                # Keep only the current window in memory.
+                window = window.to(
+                    device,
+                    non_blocking=False
+                )
 
-            predicted_class = torch.argmax(
-                probabilities,
-                dim=1
-            ).item()
+                outputs = model(
+                    window
+                )
 
-            predicted_label = CLASS_NAMES[
-                predicted_class
-            ]
+                probabilities = torch.softmax(
+                    outputs,
+                    dim=1
+                )
 
-            confidence = probabilities[
-                0,
-                predicted_class
-            ].item()
+                predicted_class = torch.argmax(
+                    probabilities,
+                    dim=1
+                ).item()
 
-            predictions.append(
-                predicted_label
-            )
+                predicted_label = CLASS_NAMES[
+                    predicted_class
+                ]
 
-            confidences.append(
-                confidence
-            )
+                confidence = probabilities[
+                    0,
+                    predicted_class
+                ].item()
+
+                predictions.append(
+                    predicted_label
+                )
+
+                confidences.append(
+                    confidence
+                )
+
+                # Explicitly release tensors from
+                # the current iteration.
+                del window
+                del outputs
+                del probabilities
+
+    finally:
+
+        # Release model and Python references.
+        del model
+
+        # Ask Python to release unused objects.
+        gc.collect()
 
     return predictions, confidences
 
@@ -189,6 +224,14 @@ if __name__ == "__main__":
     )
 
     print(
+        "\nConfidences:"
+    )
+
+    print(
+        result["confidences"]
+    )
+
+    print(
         "\nShot Frequency:"
     )
 
@@ -223,3 +266,4 @@ if __name__ == "__main__":
     print(
         "=========================================="
     )
+
